@@ -1,0 +1,26 @@
+:root {
+  --brand-bg: #0B0C10;
+  --brand-surface: #1F2833;
+  --brand-text: #C5C6C7;
+  --brand-accent: #66FCF1;
+  --brand-accent-2: #45A29E;
+
+  --sl-color-accent-low: color-mix(in srgb, var(--brand-accent-2) 60%, var(--brand-bg));
+  --sl-color-accent: var(--brand-accent);
+  --sl-color-accent-high: color-mix(in srgb, var(--brand-accent) 25%, var(--brand-text));
+
+  --sl-color-white: var(--brand-text);
+  --sl-color-gray-1: color-mix(in srgb, var(--brand-text) 92%, white);
+  --sl-color-gray-2: var(--brand-text);
+  --sl-color-gray-3: color-mix(in srgb, var(--brand-text) 70%, var(--brand-surface));
+  --sl-color-gray-4: color-mix(in srgb, var(--brand-text) 45%, var(--brand-surface));
+  --sl-color-gray-5: color-mix(in srgb, var(--brand-text) 25%, var(--brand-surface));
+  --sl-color-gray-6: var(--brand-surface);
+  --sl-color-black: var(--brand-bg);
+
+  --sl-color-text: var(--sl-color-gray-2);
+  --sl-color-text-accent: var(--sl-color-accent-high);
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: var(--sl-color-gray-6);
+  --sl-color-bg-sidebar: var(--sl-color-gray-6);
+}
