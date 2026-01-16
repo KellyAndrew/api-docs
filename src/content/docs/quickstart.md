@@ -14,5 +14,5 @@ Get a successful response.
 ## Make a request
 
 ```bash
-curl -sS https://example.com
+curl -H "Authorization: Bearer <token>" https://api.example.com/v1/ping
 ```

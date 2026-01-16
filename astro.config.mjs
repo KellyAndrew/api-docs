@@ -15,6 +15,7 @@ customCss: ['./src/styles/custom.css'],
           label: 'Start here',
           items: [
             { label: 'Quickstart', slug: 'quickstart' },
+			{ label: 'Authentication', slug: 'auth' },
             { label: 'Example Guide', slug: 'guides/example' }
           ]
         },
