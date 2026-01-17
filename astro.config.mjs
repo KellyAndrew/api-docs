@@ -2,13 +2,13 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
-  site: 'https://andrewkelly.github.io',
+  site: 'https://kellyandrew.github.io',
   base: '/api-docs',
   integrations: [
     starlight({
       title: 'My Docs',
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/KellyAndrew/api-docs' },
       ],
       pagination: true,
       customCss: ['./src/styles/custom.css'],
@@ -16,16 +16,35 @@ export default defineConfig({
         {
           label: 'Start here',
           items: [
+            { label: 'Overview', slug: '' },
             { label: 'Quickstart', slug: 'quickstart' },
-            { label: 'Authentication', slug: 'auth' },
-            { label: 'Example Guide', slug: 'guides/example' }
-          ]
+            { label: 'Authentication', slug: 'authentication' },
+            { label: 'Errors', slug: 'errors' },
+          ],
+        },
+        {
+          label: 'Concepts',
+          items: [
+            { label: 'Core concepts', slug: 'concepts/core-concepts' },
+            { label: 'Security considerations', slug: 'concepts/security-considerations' },
+          ],
+        },
+        {
+          label: 'Guides',
+          items: [
+            { label: 'Rate limits', slug: 'guides/rate-limits' },
+            { label: 'Webhooks', slug: 'guides/webhooks' },
+          ],
         },
         {
           label: 'Reference',
-          autogenerate: { directory: 'reference' }
-        }
-      ]
-    })
-  ]
+          items: [{ label: 'Endpoints', slug: 'reference/endpoints' }],
+        },
+        {
+          label: 'Help',
+          items: [{ label: 'FAQ', slug: 'help/faq' }],
+        },
+      ],
+    }),
+  ],
 });
