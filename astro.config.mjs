@@ -1,53 +1,52 @@
-import { defineConfig } from "astro/config";
-import starlight from "@astrojs/starlight";
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
 
 export default defineConfig({
-  site: "https://docs.andrewkelly.de",
-
+  site: 'https://docs.andrewkelly.de/',
   integrations: [
     starlight({
-      title: "My Docs",
+      title: 'My Docs',
 
-      // Header icons (top-right)
+      // Top-right header icons (this is the “header link” mechanism)
       social: [
-        { icon: "external", label: "Main site", href: "https://www.andrewkelly.de" },
-        { icon: "github", label: "GitHub", href: "https://github.com/KellyAndrew/api-docs" },
+        { icon: 'external', label: 'Main site', href: 'https://www.andrewkelly.de/' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/KellyAndrew/api-docs' },
       ],
 
       pagination: true,
-      customCss: ["./src/styles/custom.css"],
+      customCss: ['./src/styles/custom.css'],
 
       sidebar: [
         {
-          label: "Start here",
+          label: 'Start here',
           items: [
-            { label: "Overview", slug: "" },
-            { label: "Quickstart", slug: "quickstart" },
-            { label: "Authentication", slug: "authentication" },
-            { label: "Errors", slug: "errors" },
+            { label: 'Overview', slug: '' },
+            { label: 'Quickstart', slug: 'quickstart' },
+            { label: 'Authentication', slug: 'authentication' },
+            { label: 'Errors', slug: 'errors' },
           ],
         },
         {
-          label: "Concepts",
+          label: 'Concepts',
           items: [
-            { label: "Core concepts", slug: "concepts/core-concepts" },
-            { label: "Security considerations", slug: "concepts/security-considerations" },
+            { label: 'Core concepts', slug: 'concepts/core-concepts' },
+            { label: 'Security considerations', slug: 'concepts/security-considerations' },
           ],
         },
         {
-          label: "Guides",
+          label: 'Guides',
           items: [
-            { label: "Rate limits", slug: "guides/rate-limits" },
-            { label: "Webhooks", slug: "guides/webhooks" },
+            { label: 'Rate limits', slug: 'guides/rate-limits' },
+            { label: 'Webhooks', slug: 'guides/webhooks' },
           ],
         },
         {
-          label: "Reference",
-          items: [{ label: "Endpoints", slug: "reference/endpoints" }],
+          label: 'Reference',
+          items: [{ label: 'Endpoints', slug: 'reference/endpoints' }],
         },
         {
-          label: "Help",
-          items: [{ label: "FAQ", slug: "help/faq" }],
+          label: 'Help',
+          items: [{ label: 'FAQ', slug: 'help/faq' }],
         },
       ],
     }),
