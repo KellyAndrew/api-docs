@@ -6,11 +6,15 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'My Docs',
+
+      nav: [
+        { label: 'Main site', href: 'https://www.andrewkelly.de/' },
+      ],
+
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/KellyAndrew/api-docs' },
       ],
-      pagination: true,
-      customCss: ['./src/styles/custom.css'],
+
       sidebar: [
         {
           label: 'Start here',
