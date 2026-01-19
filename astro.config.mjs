@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
-  site: 'https://kellyandrew.github.io',
-  base: '/api-docs',
+  site: 'https://docs.andrewkelly.de',
   integrations: [
     starlight({
       title: 'My Docs',
