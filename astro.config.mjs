@@ -14,7 +14,7 @@ export default defineConfig({
       ],
 
       pagination: true,
-      customCss: ['./src/styles/custom.css'],
+      customCss: ['./src/styles/brand.css'],
 
       sidebar: [
         {

@@ -1,0 +1,191 @@
+/* ===============================
+   Modern Trust — Light + Dark
+   (cybersecurity dark teal brand)
+   =============================== */
+
+/* ---------- Light mode (calm paper, teal-forward, high contrast) ---------- */
+:root {
+  /* Surfaces (warm off-white, easy on the eyes) */
+
+--bg: #F7F2E8;      /* warm ivory background (base) */
+--panel: #F3EAD6;   /* surface layer (sidebar/cards) - slightly darker */
+--panel-2: #E8D9BF; /* hover/secondary fill - slightly darker again */
+
+--code-bg: #D6C3A1; /* a tick darker */
+--code-border: #C3AE88;
+
+  /* Text */
+  --text: #0B1220;
+  --muted: #2F3E55;
+
+  /* Borders */
+  --border: #D8E8E4;
+
+  /* Brand accents */
+  --accent: #14B8A6;       /* teal brand (fills/highlights) */
+  --accent-2: #0F766E;     /* link teal (readable on light bg) */
+  --accent-hover: #115E59; /* deeper teal hover */
+
+  /* Focus ring */
+  --ring: #14B8A6;
+}
+
+
+/* ---------- Dark mode ---------- */
+:root[data-theme="dark"],
+html[data-theme="dark"] {
+  --bg: #0B1220;
+  --panel: #111C2E;
+  --panel-2: #0F1A2B;
+
+  --text: #EAF0FF;
+  --muted: #A9B4CC;
+
+  --border: #1F2A44;
+
+  --accent: #14B8A6;
+  --accent-2: #22D3EE;
+  --accent-hover: #38BDF8;
+
+  --ring: #22D3EE;
+}
+
+/* ---------- Shared base styling ---------- */
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent-2);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Optional: calm, consistent form controls */
+input,
+textarea,
+select {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Starlight token mapping ---------- */
+:root {
+  --sl-color-bg: var(--bg);
+  --sl-color-bg-nav: var(--panel-nav);
+  --sl-color-bg-sidebar: var(--panel);
+  --sl-color-bg-inline-code: var(--panel-2);
+
+  --sl-color-gray-1: var(--text);
+  --sl-color-gray-2: var(--muted);
+  --sl-color-gray-5: var(--border);
+
+  --sl-color-accent: var(--accent);
+  --sl-color-text-accent: var(--accent-2);
+}
+
+:root[data-theme="dark"],
+html[data-theme="dark"] {
+  --sl-color-bg: var(--bg);
+  --sl-color-bg-nav: var(--panel);
+  --sl-color-bg-sidebar: var(--panel);
+  --sl-color-bg-inline-code: var(--panel-2);
+
+  --sl-color-gray-1: var(--text);
+  --sl-color-gray-2: var(--muted);
+  --sl-color-gray-5: var(--border);
+
+  --sl-color-accent: var(--accent);
+  --sl-color-text-accent: var(--accent-2);
+}
+
+/* ===============================
+   Sidebar nav: force readable contrast
+   (wins against Starlight defaults)
+   =============================== */
+
+/* Base sidebar link color */
+.sl-sidebar a,
+.sidebar a {
+  color: var(--muted) !important;
+}
+
+/* Hover/focus for any sidebar link */
+.sl-sidebar a:hover,
+.sl-sidebar a:focus-visible,
+.sidebar a:hover,
+.sidebar a:focus-visible {
+  color: var(--text) !important;
+  background: var(--panel-2) !important;
+}
+
+/* Code blocks: stronger separation on warm light backgrounds */
+:root pre,
+:root .expressive-code,
+:root .expressive-code pre {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border) !important;
+}
+
+/* Inline code (optional but nice) */
+:root :not(pre) > code {
+  background: color-mix(in srgb, var(--code-bg) 55%, white) !important;
+  border: 1px solid color-mix(in srgb, var(--code-border) 55%, white) !important;
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+}
+
+
+/* Current page (active) — LIGHT MODE */
+:root .sl-sidebar a[aria-current="page"],
+:root .sidebar a[aria-current="page"] {
+  background: var(--accent) !important; /* teal pill */
+  color: var(--text) !important;        /* dark text on teal */
+  font-weight: 600;
+}
+
+/* Current page (active) — DARK MODE */
+:root[data-theme="dark"] .sl-sidebar a[aria-current="page"],
+:root[data-theme="dark"] .sidebar a[aria-current="page"],
+html[data-theme="dark"] .sl-sidebar a[aria-current="page"],
+html[data-theme="dark"] .sidebar a[aria-current="page"] {
+  background: var(--accent-2) !important; /* cyan pill */
+  color: #0B1220 !important;              /* deep navy text on cyan */
+  font-weight: 600;
+}
+
+/* Keep active readable on hover/focus too */
+:root .sl-sidebar a[aria-current="page"]:hover,
+:root .sl-sidebar a[aria-current="page"]:focus-visible,
+:root .sidebar a[aria-current="page"]:hover,
+:root .sidebar a[aria-current="page"]:focus-visible {
+  color: var(--text) !important;
+}
+
+:root[data-theme="dark"] .sl-sidebar a[aria-current="page"]:hover,
+:root[data-theme="dark"] .sl-sidebar a[aria-current="page"]:focus-visible,
+:root[data-theme="dark"] .sidebar a[aria-current="page"]:hover,
+:root[data-theme="dark"] .sidebar a[aria-current="page"]:focus-visible,
+html[data-theme="dark"] .sl-sidebar a[aria-current="page"]:hover,
+html[data-theme="dark"] .sl-sidebar a[aria-current="page"]:focus-visible,
+html[data-theme="dark"] .sidebar a[aria-current="page"]:hover,
+html[data-theme="dark"] .sidebar a[aria-current="page"]:focus-visible {
+  color: #0B1220 !important;
+}
