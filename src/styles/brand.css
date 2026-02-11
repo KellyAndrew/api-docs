@@ -6,13 +6,14 @@
 /* ---------- Light mode (calm paper, teal-forward, high contrast) ---------- */
 :root {
   /* Surfaces (warm off-white, easy on the eyes) */
+  --bg: #F7F2E8;      /* warm ivory background (base) */
+  --panel: #F3EAD6;   /* surface layer (sidebar/cards) - slightly darker */
+  --panel-nav: var(--panel); /* header/search strip */
+  --panel-2: #E8D9BF; /* hover/secondary fill - slightly darker again */
 
---bg: #F7F2E8;      /* warm ivory background (base) */
---panel: #F3EAD6;   /* surface layer (sidebar/cards) - slightly darker */
---panel-2: #E8D9BF; /* hover/secondary fill - slightly darker again */
-
---code-bg: #D6C3A1; /* a tick darker */
---code-border: #C3AE88;
+  /* Code surfaces (light mode) */
+  --code-bg: #D6C3A1;     /* a tick darker */
+  --code-border: #C3AE88;
 
   /* Text */
   --text: #0B1220;
@@ -29,6 +30,8 @@
   /* Focus ring */
   --ring: #14B8A6;
 }
+
+
 
 
 /* ---------- Dark mode ---------- */
