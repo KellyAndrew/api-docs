@@ -6,16 +6,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'My Docs',
-
-      // Top-right header icons (this is the “header link” mechanism)
       social: [
         { icon: 'external', label: 'Main site', href: 'https://www.andrewkelly.de/' },
         { icon: 'github', label: 'GitHub', href: 'https://github.com/KellyAndrew/api-docs' },
       ],
-
       pagination: true,
-      customCss: ['./src/styles/brand.css'],
-
+pagination: true,
+      customCss: ['./src/styles/brand.css'], // Simplified to one file
       sidebar: [
         {
           label: 'Start here',

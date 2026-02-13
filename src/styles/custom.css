@@ -1,26 +1,32 @@
-:root {
-  --brand-bg: #0B0C10;
-  --brand-surface: #1F2833;
-  --brand-text: #C5C6C7;
-  --brand-accent: #66FCF1;
-  --brand-accent-2: #45A29E;
+/* custom.css - High Contrast Overrides */
 
-  --sl-color-accent-low: color-mix(in srgb, var(--brand-accent-2) 60%, var(--brand-bg));
-  --sl-color-accent: var(--brand-accent);
-  --sl-color-accent-high: color-mix(in srgb, var(--brand-accent) 25%, var(--brand-text));
+:root:not([data-theme="dark"]) {
+  /* Ensure the sidebar background is solid and clean */
+  --sl-color-bg-sidebar: #BCCADC !important;
+}
 
-  --sl-color-white: var(--brand-text);
-  --sl-color-gray-1: color-mix(in srgb, var(--brand-text) 92%, white);
-  --sl-color-gray-2: var(--brand-text);
-  --sl-color-gray-3: color-mix(in srgb, var(--brand-text) 70%, var(--brand-surface));
-  --sl-color-gray-4: color-mix(in srgb, var(--brand-text) 45%, var(--brand-surface));
-  --sl-color-gray-5: color-mix(in srgb, var(--brand-text) 25%, var(--brand-surface));
-  --sl-color-gray-6: var(--brand-surface);
-  --sl-color-black: var(--brand-bg);
+/* THE ACTIVE PILL: Deep Navy + Sharp White */
+:root:not([data-theme="dark"]) .sl-sidebar a[aria-current="page"] {
+  background-color: #0F172A !important; /* Deep Navy */
+  border-left: 4px solid #C2410C !important; /* Brand Orange Border */
+  border-radius: 0 4px 4px 0 !important;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
 
-  --sl-color-text: var(--sl-color-gray-2);
-  --sl-color-text-accent: var(--sl-color-accent-high);
-  --sl-color-bg: var(--sl-color-black);
-  --sl-color-bg-nav: var(--sl-color-gray-6);
-  --sl-color-bg-sidebar: var(--sl-color-gray-6);
+/* FORCE WHITE TEXT: No more halation or gray-on-gray */
+:root:not([data-theme="dark"]) .sl-sidebar a[aria-current="page"] * {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+}
+
+/* Improve Headings readability */
+.sl-markdown-content h1, 
+.sl-markdown-content h2 {
+  color: #0F172A !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #C2410C;
+  padding-bottom: 0.5rem;
 }
