@@ -1,5 +1,8 @@
-/* brand.css - High Priority Branding */
+/* brand.css - Andrew Kelly Brand Documentation */
 
+/* ====================================================== */
+/* 1. LIGHT THEME: Slate / Burnt Orange / Navy            */
+/* ====================================================== */
 :root:not([data-theme="dark"]) {
   --my-orange: #C2410C;
   --my-navy: #1E3A8A;
@@ -12,65 +15,126 @@
   --sl-color-text-accent: var(--my-orange) !important;
 }
 
-/* 1. HEADER FIX */
-header {
+/* Header */
+:root:not([data-theme="dark"]) header {
   background-color: var(--my-slate-bg) !important;
   border-bottom: 1px solid rgba(15, 23, 42, 0.1) !important;
 }
 
-/* 2. SIDEBAR PILL (Orange is fine per your preference) */
+/* Sidebar Pill */
 :root:not([data-theme="dark"]) .sl-sidebar a[aria-current="page"] {
   background-color: var(--my-orange) !important; 
   border-left: 4px solid var(--my-navy) !important;
-  text-decoration: none !important;
 }
 
-:root:not([data-theme="dark"]) .sl-sidebar a[aria-current="page"] .sl-link-label {
-  color: #FFFFFF !important;
-}
-
-/* 3. HEADINGS: Burnt Orange */
-.sl-markdown-content h1, 
-.sl-markdown-content h2,
-.sl-markdown-content h3 {
+/* Headings */
+:root:not([data-theme="dark"]) .sl-markdown-content h1, 
+:root:not([data-theme="dark"]) .sl-markdown-content h2,
+:root:not([data-theme="dark"]) .sl-markdown-content h3 {
   color: var(--my-orange) !important;
 }
 
-/* 4. PAGINATION BUTTONS: Forcing the Orange */
-.pagination-links {
-  margin: 4rem 0 !important;
-  border-top: 1px solid rgba(15, 23, 42, 0.1) !important;
-  padding-top: 2.5rem !important;
-}
-
-.pagination-links a {
+/* PAGINATION: Using your original .pagination-links class */
+:root:not([data-theme="dark"]) .pagination-links a {
   background-color: rgba(255, 255, 255, 0.6) !important;
   border: 1px solid rgba(15, 23, 42, 0.1) !important;
-  border-radius: 12px !important;
-  transition: all 0.2s ease !important;
 }
 
-/* FORCE ORANGE ON TITLES */
-.pagination-links .title {
+:root:not([data-theme="dark"]) .pagination-links .title {
   color: var(--my-orange) !important;
-  font-weight: 700 !important;
 }
 
-/* FORCE ORANGE ON ARROWS (SVGs) */
-.pagination-links a svg,
-.pagination-links svg {
+:root:not([data-theme="dark"]) .pagination-links svg {
   fill: var(--my-orange) !important;
   color: var(--my-orange) !important;
 }
 
-/* Hover State */
-.pagination-links a:hover {
-  background-color: #ffffff !important;
+/* ====================================================== */
+/* 2. DARK THEME: Midnight / Electric Cyan                */
+/* ====================================================== */
+:root[data-theme='dark'] {
+  --sl-color-bg: #030712 !important;           
+  --sl-color-bg-nav: #0b1120 !important;       
+  --sl-color-bg-sidebar: #0b1120 !important;
+  --sl-color-accent: #22d3ee !important;       
+  --sl-color-white: #22d3ee !important; /* Headings */
+  --sl-color-gray-1: #94a3b8 !important; /* Muted text */
+}
+
+/* ====================================================== */
+/* 3. PAGINATION INTERACTIVITY (THE GLOW)                 */
+/* ====================================================== */
+
+/* --- LIGHT MODE INTERACTION --- */
+:root:not([data-theme="dark"]) .pagination-links a {
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Hover State: Subtle Orange Glow */
+:root:not([data-theme="dark"]) .pagination-links a:hover {
   border-color: var(--my-orange) !important;
+  background-color: #fff7ed !important; /* Very soft orange tint */
+  box-shadow: 0 4px 12px rgba(194, 65, 12, 0.15) !important;
   transform: translateY(-2px);
 }
 
-.pagination-links .rel {
-  color: var(--my-navy) !important;
-  opacity: 0.7;
+/* Active State: The "Pressed" Orange Glow */
+:root:not([data-theme="dark"]) .pagination-links a:active {
+  background-color: var(--my-orange) !important;
+  transform: translateY(0);
+}
+
+:root:not([data-theme="dark"]) .pagination-links a:active .title,
+:root:not([data-theme="dark"]) .pagination-links a:active svg {
+  color: white !important;
+  fill: white !important;
+}
+
+/* --- DARK MODE INTERACTION --- */
+[data-theme='dark'] .pagination-links a {
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Hover State: Cyan Glow */
+[data-theme='dark'] .pagination-links a:hover {
+  border-color: #22d3ee !important;
+  background-color: #083344 !important; /* Deep Navy-Teal */
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.2) !important;
+  transform: translateY(-2px);
+}
+
+/* Active State: The "Pressed" Cyan Glow */
+[data-theme='dark'] .pagination-links a:active {
+  background-color: #22d3ee !important;
+  transform: translateY(0);
+}
+
+[data-theme='dark'] .pagination-links a:active .title,
+[data-theme='dark'] .pagination-links a:active svg {
+  color: #030712 !important; /* Dark text on Cyan background when clicked */
+  fill: #030712 !important;
+}
+/* brand.css - Table Polish */
+
+/* Dark Mode Table Headers */
+[data-theme='dark'] table thead {
+    background-color: #0b1120 !important; /* Midnight Navy */
+}
+
+[data-theme='dark'] table thead th {
+    color: #22d3ee !important; /* Electric Cyan */
+    border-bottom: 2px solid #22d3ee !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+/* Light Mode Table Headers */
+:root:not([data-theme="dark"]) table thead {
+    background-color: #BCCADC !important; /* Slate Panel */
+}
+
+:root:not([data-theme="dark"]) table thead th {
+    color: #C2410C !important; /* Burnt Orange */
+    border-bottom: 2px solid #C2410C !important;
 }
