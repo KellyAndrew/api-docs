@@ -7,11 +7,6 @@ description: Identifying and resolving structural fractures in your signal.
 
 Kyanite uses standard HTTP status codes to communicate the state of the mesh. When a signal fails to conduct, the API returns a response body detailing the **Fracture Point** so you can restore the flow.
 
-## Response Indicators
-
-In the **Kyanite Dashboard**, error states are visualized using your theme’s accent colors:
-* ☀️ **Light Mode:** High-priority errors pulse in **Burnt Orange** (#C2410C).
-* 🌙 **Dark Mode:** System interference is highlighted against the **Dark Teal** grid.
 
 ## Common Status Codes
 
