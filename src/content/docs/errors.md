@@ -1,30 +1,27 @@
 ---
-title: Errors & Interference
-description: Identifying and resolving structural fractures in your signal.
+title: Errors
+description: HTTP status codes and error responses.
 ---
 
 ## Summary
 
-Kyanite uses standard HTTP status codes to communicate the state of the mesh. When a signal fails to conduct, the API returns a response body detailing the **Fracture Point** so you can restore the flow.
+KyaniteAPI uses standard HTTP status codes to indicate whether a request succeeded. For error responses, the API returns a response body that describes what went wrong and how to fix it.
 
+## Common status codes
 
-## Common Status Codes
-
-| Code | Status | Meaning in the Mesh |
+| Code | Status | Meaning |
 | :--- | :--- | :--- |
-| **400** | Bad Request | **Structural Flaw:** The request is malformed or missing required fields. |
-| **401** | Unauthorized | **Invalid Key:** The signal lacks the necessary Crystal-Key for entry. |
-| **403** | Forbidden | **Restricted Stratum:** Your key lacks permission for this specific conduit. |
-| **404** | Not Found | **Void Path:** The requested endpoint or resource does not exist. |
-| **409** | Conflict | **State Collision:** The request conflicts with the current bedrock data. |
-| **429** | Too Many Requests | **Saturation:** The conduit is at capacity. Implement exponential backoff. |
-| **5xx** | Server Error | **Core Disturbance:** An internal issue occurred within the Kyanite core. |
+| **400** | Bad Request | The request is malformed or missing required fields. |
+| **401** | Unauthorized | The request is missing valid authentication credentials. |
+| **403** | Forbidden | The credentials are valid, but do not have permission to access the resource. |
+| **404** | Not Found | The requested endpoint or resource does not exist. |
+| **409** | Conflict | The request conflicts with the current state of the resource (for example, a duplicate or version mismatch). |
+| **429** | Too Many Requests | The request was rate limited. Retry after the specified delay. |
+| **5xx** | Server Error | An internal error occurred. Retry the request. If the problem persists, contact support. |
 
-## Troubleshooting Checklist
+## Troubleshooting checklist
 
-1. **Verify the Path:** Ensure the endpoint and method align with the Kyanite documentation.
-2. **Check Conduction:** Confirm the `Authorization` header is correctly formatted as `Bearer ky_live_...`.
-3. **Inspect the Payload:** Validate that your JSON is structurally sound and matches the required schema.
-4. **Monitor Pressure:** If you encounter a **429**, check your rate limits in the dashboard and retry after the specified cooldown.
-
----
+1. **Verify the endpoint:** Confirm the URL and HTTP method match the documentation.
+2. **Check authentication:** Ensure the `Authorization` header is present and formatted as `Bearer <API_KEY>`.
+3. **Validate the payload:** Ensure the JSON is valid and matches the required schema.
+4. **Handle rate limits:** For `429` responses, respect the `Retry-After` header (if present) and use exponential backoff.

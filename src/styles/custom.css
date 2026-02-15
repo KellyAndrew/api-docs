@@ -30,3 +30,30 @@
   border-bottom: 2px solid #C2410C;
   padding-bottom: 0.5rem;
 }
+/* THE MASTER KEY OVERRIDE */
+
+/* Target the Expressive Code frame specifically */
+:root:not([data-theme="dark"]) .expressive-code frame,
+:root:not([data-theme="dark"]) .expressive-code pre {
+  /* This forces the background color regardless of the engine's internal theme */
+  background-color: #0F172A !important;
+  --sl-color-bg-code: #0F172A !important;
+}
+
+/* This targets the internal "scrolling" area of the code block */
+:root:not([data-theme="dark"]) .expressive-code code {
+  color: #F8FAFC !important;
+  background: transparent !important;
+}
+
+/* Force the syntax highlighting to flip via filter as a fail-safe */
+:root:not([data-theme="dark"]) .expressive-code span {
+    /* If text is dark, this makes it light and vibrant */
+    filter: brightness(2) contrast(1.5) grayscale(0) !important;
+}
+
+/* Target the header/copy button area */
+:root:not([data-theme="dark"]) .expressive-code .copy button {
+    color: #F8FAFC !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}

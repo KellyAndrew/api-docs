@@ -1,25 +1,22 @@
----
-title: Kyanite Overview
-description: High-conductivity event ingestion and structural processing.
----
+Kyanite Overview
 
-Welcome to **KyaniteAPI**. Kyanite is a high-conductivity event mesh designed to ensure structural integrity between your frontend actions and backend logic.
+Welcome to KyaniteAPI. KyaniteAPI is an event ingestion and processing API that decouples client requests from downstream work. Clients submit events to KyaniteAPI, which validates and queues them for processing so your application can handle traffic spikes without blocking user interactions.
 
-### The Big Picture
+The Big Picture
 
-Kyanite acts as the **bedrock** for your application data. Instead of hitting your primary database directly, clients transmit signals to our **Ingress Stratum**. This ensures that even during seismic traffic spikes, your data is captured and crystallized for processing without fracturing the user experience.
+Instead of writing directly to your primary database from the client, clients submit events to the ingestion endpoint. KyaniteAPI acknowledges accepted events with 202 Accepted and processes them asynchronously. This design helps you keep client interactions responsive while ensuring events are captured for downstream processing.
 
-### Core Features
+Core Features
 
-* **Crystalline Validation:** Every payload is checked against your defined JSON schemas instantly to ensure data purity before it enters the mesh.
-* **Non-Blocking Conduction:** Immediate `202 Accepted` responses keep your client interactions fluid and fast.
-* **Solid-State Reliability:** Integrated message queuing ensures no signal is ever lost, even during downstream maintenance cycles.
+Schema Validation: Validates incoming payloads against your configured JSON Schemas before accepting the event for processing.
 
-### Architecture Strata
+Asynchronous Ingestion: Returns 202 Accepted after an event is accepted, so client requests remain fast and non-blocking.
 
-| Component | Layer | Description |
-| :--- | :--- | :--- |
-| **Surface Node** | Security | Handles Auth (Crystal-Key) and initial request validation. |
-| **The Conduit** | Transport | The high-speed, anisotropic lane for your data packets. |
-| **Refractor Pool** | Logic | Distributed services that transform and route data based on priority. |
-| **Bedrock Storage** | Persistence | The final destination (Database, Analytics, or S3). |
+Queued Processing: Events are placed onto a queue for downstream processing and delivery.
+
+If you do have retries, retention, ordering, or delivery guarantees, state them explicitly (for example: “at-least-once delivery”, “retained for 24 hours”, “best-effort ordering per key”). Otherwise keep it as above.
+
+Architecture
+| Component    | Layer    | Description                                            |
+| ------------ | -------- | ------------------------------------------------------ |
+| Edge Gateway | Security | Handles authentication and initial request validation. |

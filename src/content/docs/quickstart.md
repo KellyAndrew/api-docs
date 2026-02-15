@@ -1,20 +1,20 @@
 ---
 title: Quickstart
-description: Establish your first connection to the Kyanite mesh.
+description: Make your first request to KyaniteAPI.
 ---
 
 ## Summary
 
-Initialize the conduit by sending a test signal to verify your credentials and network path.
+Send a test request to verify your API key and connectivity.
 
 ## Goal
 
-Successfully conduct a "Pulse" request and receive a confirmation from the Kyanite core.
+Call the health check endpoint and receive a successful response.
 
-## Establish Conduction
+## Make a test request
 
-To verify your integration, send a `GET` request to the heartbeat endpoint. This ensures your **Crystal-Key** is valid and the path to the **Ingress Stratum** is clear.
+To verify your integration, send a `GET` request to the health check endpoint. This confirms that your API key is valid and that you can reach the KyaniteAPI service.
 
 ```bash
 curl -H "Authorization: Bearer ky_live_YOUR_KEY" \
-     [https://api.kyanite.io/v1/pulse](https://api.kyanite.io/v1/pulse)
+  https://api.kyanite.io/v1/pulse
