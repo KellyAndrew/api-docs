@@ -1,25 +1,35 @@
 ---
-title: Errors
-description: Understand error responses and how to fix them.
+title: Errors & Interference
+description: Identifying and resolving structural fractures in your signal.
 ---
 
 ## Summary
 
-This API uses standard HTTP status codes. Error responses may include a JSON body with details.
+Kyanite uses standard HTTP status codes to communicate the state of the mesh. When a signal fails to conduct, the API returns a response body detailing the **Fracture Point** so you can restore the flow.
 
-## Common status codes
+## Response Indicators
 
-- **400 Bad Request**: Your request is invalid or missing required fields.
-- **401 Unauthorized**: Missing or invalid token.
-- **403 Forbidden**: Token is valid but lacks permission.
-- **404 Not Found**: Resource or endpoint does not exist.
-- **409 Conflict**: Request conflicts with current state.
-- **429 Too Many Requests**: You hit a rate limit.
-- **5xx Server Error**: Problem on the server side.
+In the **Kyanite Dashboard**, error states are visualized using your theme’s accent colors:
+* ☀️ **Light Mode:** High-priority errors pulse in **Burnt Orange** (#C2410C).
+* 🌙 **Dark Mode:** System interference is highlighted against the **Dark Teal** grid.
 
-## Troubleshooting checklist
+## Common Status Codes
 
-1. Confirm the endpoint path and HTTP method.
-2. Confirm the `Authorization` header is present and correct.
-3. Validate JSON format and required fields.
-4. Check rate limits and retry after a delay if you get 429.
+| Code | Status | Meaning in the Mesh |
+| :--- | :--- | :--- |
+| **400** | Bad Request | **Structural Flaw:** The request is malformed or missing required fields. |
+| **401** | Unauthorized | **Invalid Key:** The signal lacks the necessary Crystal-Key for entry. |
+| **403** | Forbidden | **Restricted Stratum:** Your key lacks permission for this specific conduit. |
+| **404** | Not Found | **Void Path:** The requested endpoint or resource does not exist. |
+| **409** | Conflict | **State Collision:** The request conflicts with the current bedrock data. |
+| **429** | Too Many Requests | **Saturation:** The conduit is at capacity. Implement exponential backoff. |
+| **5xx** | Server Error | **Core Disturbance:** An internal issue occurred within the Kyanite core. |
+
+## Troubleshooting Checklist
+
+1. **Verify the Path:** Ensure the endpoint and method align with the Kyanite documentation.
+2. **Check Conduction:** Confirm the `Authorization` header is correctly formatted as `Bearer ky_live_...`.
+3. **Inspect the Payload:** Validate that your JSON is structurally sound and matches the required schema.
+4. **Monitor Pressure:** If you encounter a **429**, check your rate limits in the dashboard and retry after the specified cooldown.
+
+---

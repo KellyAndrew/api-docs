@@ -1,43 +1,41 @@
 ---
 title: Authentication
-description: Learn how to securely authenticate your requests to the EventFlow API.
+description: Secure the perimeter of your Kyanite mesh.
 ---
 
-At EventFlow, security isn't an afterthought—it's the core of our architecture. All API requests must be made over **HTTPS** and include a valid API Key. 
+At **Kyanite**, security is the crystalline lattice that holds the infrastructure together. We enforce strict structural integrity: all signals must be transmitted over **HTTPS** and carry a valid Kyanite Key.
 
-### The Security First Philosophy
-To protect your data and our infrastructure, we enforce the following:
-* **Rotation:** We recommend rotating API keys every 90 days.
-* **Least Privilege:** Keys should only have access to the specific event streams they require.
-* **Encrypted Transit:** Requests made over plain HTTP will be automatically rejected.
+### The Bedrock Security Philosophy
+To protect your data and the stability of the mesh, we enforce the following:
+* **Key Rotation:** We recommend rotating your keys every 90 days to prevent erosion of security.
+* **Least Privilege:** Keys should only have access to the specific **Strata** (event streams) they require.
+* **Encrypted Conduction:** Signals sent over plain HTTP lack the necessary structure and will be automatically rejected by the Ingress Stratum.
 
 > [!CAUTION]
-> **Keep your keys secret.** Never commit API keys to version control or expose them in client-side code (like browser-based JavaScript).
+> **Keep your keys in the dark.** Never commit Kyanite Keys to version control or expose them in client-side code (like browser-based JavaScript).
 
 ---
 
 ### Authentication Method: Bearer Tokens
 
-EventFlow uses standard **Bearer Token** authentication. You must include your API key in the `Authorization` header of every request.
+Kyanite uses standard **Bearer Token** authentication to validate the integrity of the signal. You must include your Kyanite Key in the `Authorization` header of every request.
 
+#### 1. Obtain your Kyanite Key
+You can generate and manage your keys via the **[Kyanite Dashboard](#)**.
+* *Note: In the dashboard, look for the **Burnt Orange** "Generate Key" button (Light Mode) or the **Dark Teal** "Pulse" icon (Dark Mode).*
 
-
-#### 1. Obtain your API Key
-You can generate and manage your keys via the [EventFlow Dashboard](#). 
-
-#### 2. Authorize your Request
-Include the key in your header using the following format:
-`Authorization: Bearer YOUR_API_KEY`
+#### 2. Authenticate the Signal
+Include the key in your header using the standard format:
+`Authorization: Bearer YOUR_KYANITE_KEY`
 
 #### Example Request
 Here is how to structure a secure request using `cURL`:
 
 ```bash
-curl -X POST [https://api.eventflow.io/v1/events](https://api.eventflow.io/v1/events) \
-  -H "Authorization: Bearer ef_live_xxxxxxxxxxxx" \
+curl -X POST [https://api.kyanite.io/v1/conduit](https://api.kyanite.io/v1/conduit) \
+  -H "Authorization: Bearer ky_live_a1b2c3d4e5f6" \
   -H "Content-Type: application/json" \
   -d '{
-    "event": "user.signup",
-    "payload": { "id": "user_42" }
+    "type": "user.signup",
+    "payload": { "id": "usr_88" }
   }'
-```

@@ -5,7 +5,7 @@ export default defineConfig({
   site: 'https://docs.andrewkelly.de/',
   integrations: [
     starlight({
-      title: 'EventFlow API',
+      title: 'KyaniteAPI',
       social: [
         { icon: 'external', label: 'Main site', href: 'https://www.andrewkelly.de/' },
         { icon: 'github', label: 'GitHub', href: 'https://github.com/KellyAndrew/api-docs' },
