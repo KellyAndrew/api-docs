@@ -1,22 +1,47 @@
-Kyanite Overview
+---
+title: KyaniteAPI Overview
+description: Event ingestion and asynchronous processing for event-driven systems.
+---
 
-Welcome to KyaniteAPI. KyaniteAPI is an event ingestion and processing API that decouples client requests from downstream work. Clients submit events to KyaniteAPI, which validates and queues them for processing so your application can handle traffic spikes without blocking user interactions.
+## Summary
 
-The Big Picture
+KyaniteAPI is an event ingestion and processing API. It accepts events over HTTPS, validates requests, and queues accepted events for downstream processing so client interactions can remain responsive under load.
 
-Instead of writing directly to your primary database from the client, clients submit events to the ingestion endpoint. KyaniteAPI acknowledges accepted events with 202 Accepted and processes them asynchronously. This design helps you keep client interactions responsive while ensuring events are captured for downstream processing.
+## The big picture
 
-Core Features
+In a typical setup, a client sends an event to KyaniteAPI instead of writing directly to a primary database or triggering expensive work inline. KyaniteAPI acknowledges accepted events (commonly with `202 Accepted`) and processes them asynchronously.
 
-Schema Validation: Validates incoming payloads against your configured JSON Schemas before accepting the event for processing.
+This pattern helps you:
 
-Asynchronous Ingestion: Returns 202 Accepted after an event is accepted, so client requests remain fast and non-blocking.
+- decouple client requests from backend work
+- smooth traffic spikes
+- standardize validation and delivery behavior
 
-Queued Processing: Events are placed onto a queue for downstream processing and delivery.
+## Core capabilities
 
-If you do have retries, retention, ordering, or delivery guarantees, state them explicitly (for example: “at-least-once delivery”, “retained for 24 hours”, “best-effort ordering per key”). Otherwise keep it as above.
+- **Schema validation:** Validate incoming payloads against JSON schemas (if configured).
+- **Asynchronous ingestion:** Accept events quickly and process them outside the request/response cycle.
+- **Queued processing:** Buffer events for downstream workers and delivery mechanisms (for example, internal processors or webhooks).
 
-Architecture
-| Component    | Layer    | Description                                            |
-| ------------ | -------- | ------------------------------------------------------ |
-| Edge Gateway | Security | Handles authentication and initial request validation. |
+## High-level architecture
+
+| Component | Role | Description |
+| :--- | :--- | :--- |
+| Edge gateway | Security | Terminates TLS, authenticates requests, and applies basic request checks. |
+| Ingest API | Ingestion | Receives events and performs request-level validation. |
+| Queue | Buffering | Stores accepted events for asynchronous processing. |
+| Workers | Processing | Consumes queued events, applies business rules, and triggers downstream actions. |
+| Delivery (optional) | Integration | Sends events to external systems (for example, webhooks) when enabled. |
+
+## Typical request flow
+
+1. Client sends an event to `POST /v1/events` with `Authorization: Bearer <API_KEY>`.
+2. KyaniteAPI validates the request (and schema, if configured).
+3. If accepted, KyaniteAPI acknowledges the request and queues the event.
+4. Workers process the event asynchronously and optionally deliver it to downstream systems.
+
+## Related pages
+
+- Authentication
+- Errors
+- Quickstart
