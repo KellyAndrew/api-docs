@@ -1,48 +1,25 @@
 ---
-title: KyaniteAPI Overview
-description: Event ingestion and asynchronous processing for event-driven systems.
+title: EmbargoGate API Overview
+description: Reference specification for a Coordinated Vulnerability Disclosure (CVD) and SBOM ingestion engine aligned with the EU Cyber Resilience Act.
 ---
 
 ## Summary
 
-KyaniteAPI is an event ingestion and processing API. It accepts events over HTTPS, validates requests, and queues accepted events for downstream processing so client interactions can remain responsive under load.
+EmbargoGate API is a Coordinated Vulnerability Disclosure (CVD) and SBOM ingestion engine. This site is its open reference specification. It covers API governance, STRIDE threat modeling, OpenVEX advisory management, and automated disclosure pipelines aligned with the EU Cyber Resilience Act (CRA) and NIST SP 800-161.
 
-## The big picture
+The name describes the job: vulnerability advisories stay behind the gate until patch day.
 
-In a typical setup, a client sends an event to KyaniteAPI instead of writing directly to a primary database or triggering expensive work inline. KyaniteAPI acknowledges accepted events (commonly with `202 Accepted`) and processes them asynchronously.
+## The specification
 
-This pattern helps you:
+| Area | What it covers |
+| :--- | :--- |
+| [Security considerations](./concepts/security-considerations/) | STRIDE threat matrix for intake, lifecycle, and delivery, with mitigations such as Sigstore Cosign attestation, SHA-256 digests, time-bound ABAC, and parser sandboxing |
+| [Core concepts](./concepts/core-concepts/) | The advisory state machine (`SUBMITTED` → `VERIFIED` → `EMBARGOED` → `DISCLOSED` / `REJECTED`) and its CRA and NIST context |
+| [Endpoints](./reference/endpoints/) | Endpoint contract and OAuth 2.0 scope registry for SBOM ingestion, OpenVEX advisories, and webhooks |
+| [Errors](./errors/) | RFC 7807 `application/problem+json` error examples |
+| [Authentication](./authentication/) and [Webhooks](./guides/webhooks/) | mTLS, OAuth 2.0, and time-bound ABAC; HMAC-SHA256 webhook signature verification |
 
-- decouple client requests from backend work
-- smooth traffic spikes
-- standardize validation and delivery behavior
+## Where to start
 
-## Core capabilities
-
-- **Schema validation:** Validate incoming payloads against JSON schemas (if configured).
-- **Asynchronous ingestion:** Accept events quickly and process them outside the request/response cycle.
-- **Queued processing:** Buffer events for downstream workers and delivery mechanisms (for example, internal processors or webhooks).
-
-## High-level architecture
-
-| Component | Role | Description |
-| :--- | :--- | :--- |
-| Edge gateway | Security | Terminates TLS, authenticates requests, and applies basic request checks. |
-| Ingest API | Ingestion | Receives events and performs request-level validation. |
-| Queue | Buffering | Stores accepted events for asynchronous processing. |
-| Workers | Processing | Consumes queued events, applies business rules, and triggers downstream actions. |
-| Delivery (optional) | Integration | Sends events to external systems (for example, webhooks) when enabled. |
-
-## Typical request flow
-
-1. Client sends an event to `POST /v1/events` with `Authorization: Bearer <API_KEY>`.
-2. KyaniteAPI validates the request (and schema, if configured).
-3. If accepted, KyaniteAPI acknowledges the request and queues the event.
-4. Workers process the event asynchronously and optionally deliver it to downstream systems.
-
-## Related pages
-
-- [Quickstart](./quickstart/)
-- [Authentication](./authentication/)
-- [Errors](./errors/)
-
+- **Security reviewers:** begin with [Security considerations](./concepts/security-considerations/).
+- **Integrators:** begin with [Authentication](./authentication/), then [Endpoints](./reference/endpoints/).

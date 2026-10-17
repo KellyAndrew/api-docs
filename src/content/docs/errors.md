@@ -1,27 +1,76 @@
 ---
 title: Errors
-description: HTTP status codes and error responses.
+description: RFC 7807 problem details and error examples for EmbargoGate API.
 ---
 
 ## Summary
 
-KyaniteAPI uses standard HTTP status codes to indicate whether a request succeeded. For error responses, the API returns a response body that describes what went wrong and how to fix it.
+EmbargoGate API returns errors as problem details with the `application/problem+json` media type. The format is defined in RFC 7807, which RFC 9457 has since replaced; both describe the same fields.
 
-## Common status codes
+| Field | Meaning |
+| :--- | :--- |
+| `type` | URI identifying the error type |
+| `title` | Short, human-readable summary |
+| `status` | HTTP status code |
+| `detail` | Explanation specific to this occurrence |
+| `instance` | URI of the request or resource that caused the error |
 
-| Code | Status | Meaning |
-| :--- | :--- | :--- |
-| **400** | Bad Request | The request is malformed or missing required fields. |
-| **401** | Unauthorized | The request is missing valid authentication credentials. |
-| **403** | Forbidden | The credentials are valid, but do not have permission to access the resource. |
-| **404** | Not Found | The requested endpoint or resource does not exist. |
-| **409** | Conflict | The request conflicts with the current state of the resource (for example, a duplicate or version mismatch). |
-| **429** | Too Many Requests | The request was rate limited. Retry after the specified delay. |
-| **5xx** | Server Error | An internal error occurred. Retry the request. If the problem persists, contact support. |
+## Examples
 
-## Troubleshooting checklist
+### 422: Sigstore signature verification failed
 
-1. **Verify the endpoint:** Confirm the URL and HTTP method match the documentation.
-2. **Check authentication:** Ensure the `Authorization` header is present and formatted as `Bearer <API_KEY>`.
-3. **Validate the payload:** Ensure the JSON is valid and matches the required schema.
-4. **Handle rate limits:** For `429` responses, respect the `Retry-After` header (if present) and use exponential backoff.
+The SBOM signature does not match the submitter's OIDC identity.
+
+```json
+{
+  "type": "https://docs.andrewkelly.de/errors/signature-invalid",
+  "title": "Signature verification failed",
+  "status": 422,
+  "detail": "Cosign signature on the submitted SBOM does not match identity 'ci@vendor.example'.",
+  "instance": "/v1/sboms",
+  "sha256": "9f2c7e1a4b..."
+}
+```
+
+### 422: Invalid state transition
+
+The requested transition is not defined in the [advisory state machine](../concepts/core-concepts/).
+
+```json
+{
+  "type": "https://docs.andrewkelly.de/errors/invalid-transition",
+  "title": "Invalid state transition",
+  "status": 422,
+  "detail": "Advisory EG-2026-0042 cannot move from SUBMITTED to DISCLOSED.",
+  "instance": "/v1/advisories/EG-2026-0042/transitions",
+  "current_state": "SUBMITTED",
+  "allowed_states": ["VERIFIED", "REJECTED"]
+}
+```
+
+### 403: Missing scope
+
+The client certificate is valid, but the access token lacks the required scope.
+
+```json
+{
+  "type": "https://docs.andrewkelly.de/errors/insufficient-scope",
+  "title": "Insufficient scope",
+  "status": 403,
+  "detail": "This operation requires scope 'advisory:disclose'.",
+  "instance": "/v1/advisories/EG-2026-0042/transitions",
+  "required_scope": "advisory:disclose"
+}
+```
+
+## Status codes
+
+| Code | Meaning |
+| :--- | :--- |
+| **400** | The request is malformed. |
+| **401** | The mTLS client certificate or access token is missing or invalid. |
+| **403** | The token lacks the required scope, or ABAC denies access to an embargoed advisory. |
+| **404** | The resource does not exist, or the caller is not allowed to know that it exists. |
+| **413** | The payload exceeds the size limit. |
+| **422** | The payload is well-formed but fails signature, schema, or state-transition checks. |
+| **429** | The client exceeded its rate limit. Respect the `Retry-After` header. |
