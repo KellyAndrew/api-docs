@@ -4,7 +4,7 @@
 [![Deploy](https://github.com/KellyAndrew/api-docs/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/KellyAndrew/api-docs/actions/workflows/deploy.yml)
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-Reference specification for **EmbargoGate API** (formerly KyaniteAPI), a Coordinated Vulnerability Disclosure (CVD) and SBOM ingestion engine aligned with the EU Cyber Resilience Act.
+Reference specification for **EmbargoGate API**, a Coordinated Vulnerability Disclosure (CVD) and SBOM ingestion engine aligned with the EU Cyber Resilience Act.
 
 ## Contents
 
