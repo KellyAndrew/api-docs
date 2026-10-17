@@ -1,0 +1,123 @@
+---
+title: Quickstart
+description: Get an access token and submit your first OpenVEX advisory to EmbargoGate API.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Summary
+
+This guide takes you from client certificate to a submitted advisory in three requests.
+
+## Before you begin
+
+You need:
+
+- the client certificate issued to your organization, either as a certificate and key pair (`client.crt`, `client.key`) for curl, or as a PKCS#12 bundle (`client.pfx`) for PowerShell
+- an OAuth 2.0 client ID and secret
+- the `advisory:write` and `advisory:read` scopes
+
+Every request uses mutual TLS. See [Authentication](../authentication/).
+
+On Windows, use the PowerShell tab. The curl that ships with Windows and Git for Windows uses Schannel, which cannot load a `.crt` and `.key` pair.
+
+The PowerShell examples work in Windows PowerShell 5.1 and PowerShell 7. Run all three steps in the same session: later steps reuse `$cert`, `$token`, and `$headers`.
+
+## 1. Get an access token
+
+Request a token with the client credentials grant. The token is bound to the certificate you connect with.
+
+<Tabs syncKey="shell">
+<TabItem label="bash">
+
+```bash
+curl --cert client.crt --key client.key \
+  -X POST https://auth.embargogate.example/oauth2/token \
+  --data-urlencode "grant_type=client_credentials" \
+  --data-urlencode "client_id=<CLIENT_ID>" \
+  --data-urlencode "client_secret=<CLIENT_SECRET>" \
+  --data-urlencode "scope=advisory:write advisory:read"
+```
+
+The response contains an `access_token`. Use it in the next steps.
+
+</TabItem>
+<TabItem label="PowerShell">
+
+```powershell
+$certPath = (Resolve-Path -Path '.\client.pfx').Path
+$cert = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList $certPath, '<PFX_PASSWORD>'
+
+$body = @{
+    grant_type    = 'client_credentials'
+    client_id     = '<CLIENT_ID>'
+    client_secret = '<CLIENT_SECRET>'
+    scope         = 'advisory:write advisory:read'
+}
+$response = Invoke-RestMethod -Method Post -Uri 'https://auth.embargogate.example/oauth2/token' -Certificate $cert -Body $body
+$token = $response.access_token
+```
+
+`Invoke-RestMethod` sends a hashtable body as form data. `Resolve-Path` is needed because .NET resolves relative paths against the process directory, not your current PowerShell location.
+
+</TabItem>
+</Tabs>
+
+## 2. Submit an advisory
+
+Send an OpenVEX document to `POST /advisories`.
+
+<Tabs syncKey="shell">
+<TabItem label="bash">
+
+```bash
+curl --cert client.crt --key client.key \
+  -X POST https://api.embargogate.example/v1/advisories \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d @advisory.json
+```
+
+</TabItem>
+<TabItem label="PowerShell">
+
+```powershell
+$headers = @{ Authorization = "Bearer $token" }
+Invoke-RestMethod -Method Post -Uri 'https://api.embargogate.example/v1/advisories' -Certificate $cert -Headers $headers -ContentType 'application/json' -InFile '.\advisory.json'
+```
+
+</TabItem>
+</Tabs>
+
+For the contents of `advisory.json`, see the [sample OpenVEX submission](../reference/endpoints/#sample-openvex-submission).
+
+A successful request returns `201 Created` with the advisory ID. The advisory starts in the `SUBMITTED` state.
+
+## 3. Check the advisory
+
+<Tabs syncKey="shell">
+<TabItem label="bash">
+
+```bash
+curl --cert client.crt --key client.key \
+  "https://api.embargogate.example/v1/advisories/<ADVISORY_ID>" \
+  -H "Authorization: Bearer <ACCESS_TOKEN>"
+```
+
+</TabItem>
+<TabItem label="PowerShell">
+
+```powershell
+$advisoryId = '<ADVISORY_ID>'
+Invoke-RestMethod -Uri "https://api.embargogate.example/v1/advisories/$advisoryId" -Certificate $cert -Headers $headers
+```
+
+</TabItem>
+</Tabs>
+
+The response shows the current state. The triage team moves it to `VERIFIED` or `REJECTED`. To be notified when that happens instead of polling, register a [webhook](../guides/webhooks/).
+
+## Next steps
+
+- [Core concepts](../concepts/core-concepts/): how an advisory moves through its lifecycle
+- [Errors](../errors/): what to do when a request fails
