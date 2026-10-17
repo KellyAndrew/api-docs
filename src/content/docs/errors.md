@@ -69,8 +69,8 @@ The client certificate is valid, but the access token lacks the required scope.
 | :--- | :--- |
 | **400** | The request is malformed. |
 | **401** | The mTLS client certificate or access token is missing or invalid. |
-| **403** | The token lacks the required scope, or ABAC denies access to an embargoed advisory. |
-| **404** | The resource does not exist, or the caller is not allowed to know that it exists. |
+| **403** | The token lacks the required scope. |
+| **404** | The resource does not exist, or it is an embargoed advisory outside the caller's coordination group. |
 | **413** | The payload exceeds the size limit. |
 | **422** | The payload is well-formed but fails signature, schema, or state-transition checks. |
 | **429** | The client exceeded its rate limit. Respect the `Retry-After` header. |
