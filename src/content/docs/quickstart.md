@@ -24,10 +24,10 @@ Request a token with the client credentials grant. The token is bound to the cer
 ```bash
 curl --cert client.crt --key client.key \
   -X POST https://auth.embargogate.example/oauth2/token \
-  -d grant_type=client_credentials \
-  -d client_id=<CLIENT_ID> \
-  -d client_secret=<CLIENT_SECRET> \
-  -d scope="advisory:write advisory:read"
+  --data-urlencode "grant_type=client_credentials" \
+  --data-urlencode "client_id=<CLIENT_ID>" \
+  --data-urlencode "client_secret=<CLIENT_SECRET>" \
+  --data-urlencode "scope=advisory:write advisory:read"
 ```
 
 The response contains an `access_token`. Use it in the next steps.
@@ -52,7 +52,7 @@ A successful request returns `201 Created` with the advisory ID. The advisory st
 
 ```bash
 curl --cert client.crt --key client.key \
-  https://api.embargogate.example/v1/advisories/<ADVISORY_ID> \
+  "https://api.embargogate.example/v1/advisories/<ADVISORY_ID>" \
   -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 
