@@ -9,14 +9,14 @@ Because a single premature vulnerability leak turns an API gateway into a front-
 
 ## Summary
 
-EmbargoGate API is a Coordinated Vulnerability Disclosure (CVD) and SBOM ingestion engine. This site is its open reference specification. It covers API governance, STRIDE threat modeling, OpenVEX advisory management, and automated disclosure pipelines aligned with the EU Cyber Resilience Act (CRA), BSI-TR-03183-2, and NIST SP 800-161.
+EmbargoGate API is a Coordinated Vulnerability Disclosure (CVD) and SBOM ingestion engine. This site is its open reference specification. It covers API governance, STRIDE threat modeling, OpenVEX advisory management, and automated disclosure pipelines aligned with the EU Cyber Resilience Act (CRA), BSI TR-03183-2, and NIST SP 800-161.
 
 ## The specification
 
 | Area | What it covers |
 | :--- | :--- |
 | [Security considerations](./concepts/security-considerations/) | STRIDE threat matrix for intake, lifecycle, and delivery, with mitigations such as Sigstore Cosign attestation, SHA-256 digests, time-bound ABAC, and parser sandboxing |
-| [Core concepts](./concepts/core-concepts/) | The advisory state machine (`SUBMITTED` → `VERIFIED` → `EMBARGOED` → `DISCLOSED` / `REJECTED`) and its CRA, BSI-TR-03183-2, and NIST context |
+| [Core concepts](./concepts/core-concepts/) | The advisory state machine (`SUBMITTED` → `VERIFIED` → `EMBARGOED` → `DISCLOSED` / `REJECTED`) and its CRA, BSI TR-03183-2, and NIST context |
 | [Endpoints](./reference/endpoints/) | Endpoint contract and OAuth 2.0 scope registry for SBOM ingestion, OpenVEX advisories, and webhooks |
 | [Errors](./errors/) | RFC 7807 `application/problem+json` error examples |
 | [Authentication](./authentication/) and [Webhooks](./guides/webhooks/) | mTLS, OAuth 2.0, and time-bound ABAC; HMAC-SHA256 webhook signature verification |

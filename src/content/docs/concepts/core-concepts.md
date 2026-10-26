@@ -21,7 +21,7 @@ The German Federal Office for Information Security (BSI) technical guideline TR-
 
 ### NIST SP 800-161
 
-The US National Institute of Standards and Technology (NIST) Special Publication SP 800-161 covers cybersecurity supply chain risk management and is guidance not law. EmbargoGate API applies it by ingesting SBOMs, so that a verified vulnerability can be traced to every product that contains the affected component.
+The US National Institute of Standards and Technology (NIST) Special Publication (SP) 800-161 covers cybersecurity supply chain risk management and is guidance, not law. EmbargoGate API applies it by ingesting SBOMs, so that a verified vulnerability can be traced to every product that contains the affected component.
 
 ## Advisory state machine
 
@@ -43,7 +43,7 @@ SUBMITTED ──► VERIFIED ──► EMBARGOED ──► DISCLOSED
 
 | From | To | Required scope | Condition |
 | :--- | :--- | :--- | :--- |
-| `SUBMITTED` | `VERIFIED` | `advisory:verify` | Submitted SBOM digest and signature are valid. Checks format and field-rule conformity. |
+| `SUBMITTED` | `VERIFIED` | `advisory:verify` | Submitted SBOM digest and signature are valid, and the SBOM conforms to BSI TR-03183-2. |
 | `SUBMITTED` | `REJECTED` | `advisory:verify` | A rejection reason is provided. |
 | `VERIFIED` | `EMBARGOED` | `advisory:embargo` | An embargo end date and coordination group are set. |
 | `EMBARGOED` | `DISCLOSED` | `advisory:disclose` | The embargo end date has passed, or the coordinator records an early-disclosure reason. |
