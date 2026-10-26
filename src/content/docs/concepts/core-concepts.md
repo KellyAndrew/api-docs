@@ -1,6 +1,6 @@
 ---
 title: Core concepts
-description: The advisory state machine and its EU CRA and NIST SP 800-161 compliance context.
+description: The advisory state machine and its EU CRA, BSI TR-03183-2, and NIST SP 800-161 compliance context.
 ---
 
 ## Summary
@@ -11,11 +11,17 @@ EmbargoGate API manages each vulnerability advisory as a record that moves throu
 
 ### EU Cyber Resilience Act (CRA)
 
-The CRA requires manufacturers of products with digital elements to handle vulnerabilities throughout the product lifecycle and to report actively exploited vulnerabilities to the relevant CSIRT and ENISA. EmbargoGate API models that obligation as a pipeline: intake, verification, a controlled embargo period, and publication.
+The CRA requires manufacturers of products with digital elements to handle vulnerabilities throughout the product lifecycle and to report actively exploited vulnerabilities to the relevant Computer Security Incident Response Team (CSIRT) and the European Union Agency for Cybersecurity (ENISA). EmbargoGate API models that obligation as a pipeline: intake, verification, a controlled embargo period, and publication. 
+
+The CRA also requires manufacturers to draw up a software bill of materials (SBOM), under Annex I, Part II of the CRA. EmbargoGate API checks the SBOM for affected software components, so that the coordinator can issue advisories and the coordination group can work on a fix.
+
+### BSI TR-03183-2
+
+The German Federal Office for Information Security (BSI) technical guideline TR-03183-2 version 2.1.0 specifies accepted SBOM formats, required fields, and depth. EmbargoGate API checks that the submitted SBOMs conform to the format and field rules. The vulnerability is then confirmed and affected components are identified.
 
 ### NIST SP 800-161
 
-NIST SP 800-161 covers cybersecurity supply chain risk management. EmbargoGate API applies it by ingesting SBOMs, so that a verified vulnerability can be traced to every product that contains the affected component.
+The US National Institute of Standards and Technology (NIST) Special Publication SP 800-161 covers cybersecurity supply chain risk management and is guidance not law. EmbargoGate API applies it by ingesting SBOMs, so that a verified vulnerability can be traced to every product that contains the affected component.
 
 ## Advisory state machine
 
@@ -37,7 +43,7 @@ SUBMITTED ──► VERIFIED ──► EMBARGOED ──► DISCLOSED
 
 | From | To | Required scope | Condition |
 | :--- | :--- | :--- | :--- |
-| `SUBMITTED` | `VERIFIED` | `advisory:verify` | Submitted SBOM digest and signature are valid. |
+| `SUBMITTED` | `VERIFIED` | `advisory:verify` | Submitted SBOM digest and signature are valid. Checks format and field-rule conformity. |
 | `SUBMITTED` | `REJECTED` | `advisory:verify` | A rejection reason is provided. |
 | `VERIFIED` | `EMBARGOED` | `advisory:embargo` | An embargo end date and coordination group are set. |
 | `EMBARGOED` | `DISCLOSED` | `advisory:disclose` | The embargo end date has passed, or the coordinator records an early-disclosure reason. |
