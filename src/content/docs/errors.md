@@ -68,7 +68,7 @@ The client certificate is valid, but the access token lacks the required scope.
 | Code | Meaning |
 | :--- | :--- |
 | **400** | The request is malformed. |
-| **401** | The mTLS client certificate or access token is missing or invalid. |
+| **401** | The access token is missing, invalid, or not bound to the client certificate on this connection. |
 | **403** | The token lacks the required scope. |
 | **404** | The resource does not exist, or it is an embargoed advisory outside the caller's coordination group. |
 | **413** | The payload exceeds the size limit. |
