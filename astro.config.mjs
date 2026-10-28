@@ -11,7 +11,6 @@ export default defineConfig({
         { icon: 'github', label: 'GitHub', href: 'https://github.com/KellyAndrew/api-docs' },
       ],
       pagination: true,
-pagination: true,
       customCss: ['./src/styles/brand.css'], // Simplified to one file
       sidebar: [
         {
