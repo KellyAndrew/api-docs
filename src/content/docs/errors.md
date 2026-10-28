@@ -65,6 +65,8 @@ The client certificate is valid, but the access token lacks the required scope.
 
 ## Status codes
 
+ If your client certificate is missing or invalid, the connection fails. No HTTP response is returned. The TLS handshake fails, and your client shows a TLS or SSL error.
+
 | Code | Meaning |
 | :--- | :--- |
 | **400** | The request is malformed. |
