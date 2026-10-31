@@ -28,10 +28,10 @@ While an advisory is `EMBARGOED`, scopes alone are not enough. Access is granted
 | Attribute | Rule |
 | :--- | :--- |
 | Organization | The client's organization belongs to the advisory's coordination group. |
-| Time | The current time is before the embargo end date. |
+| Time | The current time is before the end of the grace period (embargo end date + 14 days). |
 | State | The advisory is in the `EMBARGOED` state. |
 
-When the embargo ends, coordination-group access expires automatically. Once the advisory is `DISCLOSED`, it is public.
+Coordination-group access expires automatically on disclosure. This can happen before the end of the embargo if a fix is ready early. Otherwise, access remains valid up to the end of the grace period. Once the advisory is `DISCLOSED`, it is public. See [Embargo timeline](../concepts/core-concepts/#embargo-timeline).
 
 ## Related pages
 

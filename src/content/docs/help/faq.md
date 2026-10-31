@@ -9,7 +9,7 @@ No. `REJECTED` is a final state. If you have new evidence, submit a new advisory
 
 ## Can an advisory be disclosed before the embargo ends?
 
-Yes, but only by a coordinator with the `advisory:disclose` scope, and only with a recorded early-disclosure reason. A typical reason is active exploitation in the wild. The reason is kept in the audit log. See [Core concepts](../../concepts/core-concepts/#transition-rules).
+Yes, but only by a coordinator with the `advisory:disclose` scope, and only with a recorded early-disclosure reason. A typical reason is active exploitation in the wild. The reason is kept in the audit log. See [Embargo timeline](../../concepts/core-concepts/#embargo-timeline).
 
 ## Why do I get 404 for an advisory I know exists?
 
@@ -17,7 +17,7 @@ While an advisory is `EMBARGOED`, the API returns `404` to callers outside the c
 
 ## My access to an embargoed advisory stopped working. Why?
 
-Coordination-group access is time-bound and expires when the embargo window ends. Once the advisory is `DISCLOSED`, it is public and can be read without coordination-group membership.
+Coordination-group access ends when the advisory is disclosed. Once the advisory is `DISCLOSED`, it is public and can be read without coordination-group membership. See [Embargo timeline](../../concepts/core-concepts/#embargo-timeline).
 
 ## Why does my webhook contain no advisory details?
 

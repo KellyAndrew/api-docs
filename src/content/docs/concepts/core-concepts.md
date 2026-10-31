@@ -35,7 +35,7 @@ SUBMITTED ──► VERIFIED ──► EMBARGOED ──► DISCLOSED
 | :--- | :--- | :--- |
 | `SUBMITTED` | A report has been received but not yet assessed. | Submitter and triage team |
 | `VERIFIED` | The vulnerability is confirmed and affected components are identified. | Submitter and triage team |
-| `EMBARGOED` | A fix is in progress. Details are shared only with the coordination group until the embargo ends. | Coordination group (time-bound) |
+| `EMBARGOED` | A fix is in progress. Details are shared only with the coordination group until the advisory is disclosed. | Coordination group (until disclosure) |
 | `DISCLOSED` | The advisory and OpenVEX statements are published. | Public |
 | `REJECTED` | The report is invalid, out of scope, or a duplicate. | Submitter and triage team |
 
@@ -45,10 +45,23 @@ SUBMITTED ──► VERIFIED ──► EMBARGOED ──► DISCLOSED
 | :--- | :--- | :--- | :--- |
 | `SUBMITTED` | `VERIFIED` | `advisory:verify` | Submitted SBOM digest and signature are valid, and the SBOM conforms to BSI TR-03183-2. |
 | `SUBMITTED` | `REJECTED` | `advisory:verify` | A rejection reason is provided. |
-| `VERIFIED` | `EMBARGOED` | `advisory:embargo` | An embargo end date and coordination group are set. |
-| `EMBARGOED` | `DISCLOSED` | `advisory:disclose` | The embargo end date has passed, or the coordinator records an early-disclosure reason. |
+| `VERIFIED` | `EMBARGOED` | `advisory:embargo` | An embargo end date and coordination group are set. The end date is at most 90 days away. |
+| `EMBARGOED` | `DISCLOSED` | `advisory:disclose` | The coordinator records a disclosure reason, or the grace period has ended. See [Embargo timeline](#embargo-timeline). |
 
 `DISCLOSED` and `REJECTED` are final states. The API rejects any transition not listed in this table with `422 Unprocessable Content`. See [Errors](../../errors/).
+
+## Embargo timeline
+
+The coordinator sets the embargo end date when the advisory enters `EMBARGOED`. The end date is at most 90 days away. It can be sooner, depending on how ready the fix is, but never later.
+
+When the embargo ends, a 14-day grace period starts automatically. It applies to every advisory and doesn't require a request. During the grace period, the advisory remains `EMBARGOED` and the coordination group keeps access.
+
+An advisory moves to `DISCLOSED` in one of two ways:
+
+- **Manually**, at any point, for example when a fix ships. The coordinator records the reason, and the call requires the `advisory:disclose` scope.
+- **Automatically**, when the grace period ends. EmbargoGate performs the transition itself and logs it, so no scope is required.
+
+If an advisory is disclosed without a fix, it still carries mitigations. Users can then decide how to act, for example by isolating the affected component or by discontinuing use of the product until a fix is available.
 
 ## Related pages
 
