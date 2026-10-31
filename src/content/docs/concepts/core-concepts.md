@@ -26,7 +26,9 @@ The US National Institute of Standards and Technology (NIST) Special Publication
 ## Advisory state machine
 
 ```
-SUBMITTED ──► VERIFIED ──► EMBARGOED ──► DISCLOSED
+SUBMITTED ──► VERIFIED ──► EMBARGOED ──── manual ─────────────────► DISCLOSED
+    │                          │                                        ▲
+    │                          └──── auto, after 14-day grace period ───┘
     │
     └──► REJECTED
 ```
@@ -46,7 +48,8 @@ SUBMITTED ──► VERIFIED ──► EMBARGOED ──► DISCLOSED
 | `SUBMITTED` | `VERIFIED` | `advisory:verify` | Submitted SBOM digest and signature are valid, and the SBOM conforms to BSI TR-03183-2. |
 | `SUBMITTED` | `REJECTED` | `advisory:verify` | A rejection reason is provided. |
 | `VERIFIED` | `EMBARGOED` | `advisory:embargo` | An embargo end date and coordination group are set. The end date is at most 90 days away. |
-| `EMBARGOED` | `DISCLOSED` | `advisory:disclose` | The coordinator records a disclosure reason, or the grace period has ended. See [Embargo timeline](#embargo-timeline). |
+| `EMBARGOED` | `DISCLOSED` (manual) | `advisory:disclose` | The coordinator records a disclosure reason. Allowed at any point before the grace period ends. |
+| `EMBARGOED` | `DISCLOSED` (automatic) | None. EmbargoGate performs the transition. | The grace period has ended. See [Embargo timeline](#embargo-timeline). |
 
 `DISCLOSED` and `REJECTED` are final states. The API rejects any transition not listed in this table with `422 Unprocessable Content`. See [Errors](../../errors/).
 
