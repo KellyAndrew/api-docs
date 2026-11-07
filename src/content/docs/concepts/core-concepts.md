@@ -51,7 +51,7 @@ SUBMITTED ──► VERIFIED ──► EMBARGOED ──── manual ───�
 | `EMBARGOED` | `DISCLOSED` (manual) | `advisory:disclose` | The coordinator records a disclosure reason. Allowed at any point before the grace period ends. |
 | `EMBARGOED` | `DISCLOSED` (automatic) | None. EmbargoGate performs the transition. | The grace period has ended. See [Embargo timeline](#embargo-timeline). |
 
-`DISCLOSED` and `REJECTED` are final states. The API rejects any transition not listed in this table with `422 Unprocessable Content`. See [Errors](../../errors/).
+`DISCLOSED` and `REJECTED` are final states. The API rejects any transition not listed in this table with `409 Conflict`. See [Errors](../../errors/).
 
 ## Embargo timeline
 

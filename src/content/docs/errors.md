@@ -32,7 +32,7 @@ The SBOM signature does not match the submitter's OIDC identity.
 }
 ```
 
-### 422: Invalid state transition
+### 409: Invalid state transition
 
 The requested transition is not defined in the [advisory state machine](../concepts/core-concepts/).
 
@@ -40,7 +40,7 @@ The requested transition is not defined in the [advisory state machine](../conce
 {
   "type": "https://docs.andrewkelly.de/errors/invalid-transition",
   "title": "Invalid state transition",
-  "status": 422,
+  "status": 409,
   "detail": "Advisory EG-2026-0042 cannot move from SUBMITTED to DISCLOSED.",
   "instance": "/v1/advisories/EG-2026-0042/transitions",
   "current_state": "SUBMITTED",
@@ -73,6 +73,7 @@ The client certificate is valid, but the access token lacks the required scope.
 | **401** | The access token is missing, invalid, or not bound to the client certificate on this connection. |
 | **403** | The token lacks the required scope. |
 | **404** | The resource does not exist, or it is an embargoed advisory outside the caller's coordination group. |
+| **409** | The requested state transition is not allowed from the advisory's current state. |
 | **413** | The payload exceeds the size limit. |
-| **422** | The payload is well-formed but fails signature, schema, or state-transition checks. |
+| **422** | The payload is well-formed but fails signature or schema checks. |
 | **429** | The client exceeded its rate limit. Respect the `Retry-After` header. |
