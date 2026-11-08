@@ -13,7 +13,7 @@ Yes, but only by a coordinator with the `advisory:disclose` scope, and only with
 
 ## Why do I get 404 for an advisory I know exists?
 
-While an advisory is `EMBARGOED`, the API returns `404` to callers outside the coordination group. A `403` would confirm that the advisory exists, which is itself a leak. See [Authentication](../../authentication/#time-bound-abac).
+Unless an advisory is `DISCLOSED`, the API returns `404` to callers who are not allowed to see it. A `403` would confirm that the advisory exists, which is itself a leak. See [Advisory state machine](../../concepts/core-concepts/#advisory-state-machine) for who can see each state, and [Authentication](../../authentication/#time-bound-abac) for embargoed advisories.
 
 ## My access to an embargoed advisory stopped working. Why?
 

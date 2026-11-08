@@ -72,7 +72,7 @@ The client certificate is valid, but the access token lacks the required scope.
 | **400** | The request is malformed. |
 | **401** | The access token is missing, invalid, or not bound to the client certificate on this connection. |
 | **403** | The token lacks the required scope. |
-| **404** | The resource does not exist, or it is an embargoed advisory outside the caller's coordination group. |
+| **404** | The resource does not exist, or it is a non-public advisory the caller is not allowed to see. |
 | **409** | The requested state transition is not allowed from the advisory's current state. |
 | **413** | The payload exceeds the size limit. |
 | **422** | The payload is well-formed but fails signature or schema checks. |
