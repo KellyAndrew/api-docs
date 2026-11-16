@@ -1,0 +1,35 @@
+openapi: 3.1.0
+info:
+  title: EmbargoGate API
+  version: 0.1.0
+servers:
+  - url: https://api.embargogate.example/v1
+paths: 
+  /advisories:
+    post:
+      summary: Submit an advisory
+      operationId: submitAdvisory
+      security:
+        - mutualTLS: []
+          oauth2: [advisory:write]
+      responses:
+        '201':
+          description: Advisory created
+        '401':
+          description: Token missing, invalid, or not bound to the client certificate
+        '403':
+          description: Token lacks the required scope
+        '422':
+          description: Payload is well-formed but fails signature or schema checks
+
+components:
+  securitySchemes:
+    mutualTLS:
+      type: mutualTLS
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.embargogate.example/oauth2/token
+          scopes:
+            advisory:write: Submit advisories
