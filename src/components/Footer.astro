@@ -1,0 +1,18 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default><slot /></Default>
+<p class="license">
+	© Andrew Kelly. Text licensed under
+	<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; code samples and the
+	OpenAPI spec under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>.
+</p>
+
+<style>
+	.license {
+		margin-top: 1.5rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+</style>

@@ -31,3 +31,10 @@ npm run dev
 ## Deployment
 
 Every push to `main` builds the site and deploys it to GitHub Pages using GitHub Actions (`.github/workflows/deploy.yml`).
+
+## License
+
+- **Code, code samples, and the OpenAPI spec** (`public/openapi.yaml`): [Apache License 2.0](LICENSE)
+- **Documentation text** (`src/content/docs/`): [Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE-docs)
+
+© Andrew Kelly
