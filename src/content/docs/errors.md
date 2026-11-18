@@ -75,5 +75,5 @@ The client certificate is valid, but the access token lacks the required scope.
 | **404** | The resource does not exist, or it is a non-public advisory the caller is not allowed to see. |
 | **409** | The requested state transition is not allowed from the advisory's current state. |
 | **413** | The payload exceeds the size limit. |
-| **422** | The payload is well-formed but fails signature or schema checks. |
+| **422** | The payload is well-formed but fails signature or schema checks, or its `sbom_digest` does not match an uploaded SBOM. |
 | **429** | The client exceeded its rate limit. Respect the `Retry-After` header. |

@@ -16,6 +16,7 @@ You need:
 - the client certificate issued to your organization, either as a certificate and key pair (`client.crt`, `client.key`) for curl, or as a PKCS#12 bundle (`client.pfx`) for PowerShell
 - an OAuth 2.0 client ID and secret
 - the `advisory:write` and `advisory:read` scopes
+- an SBOM already uploaded with `POST /sboms`, and its SHA-256 digest
 
 Every request uses mutual TLS. See [Authentication](../authentication/).
 
@@ -65,7 +66,7 @@ $token = $response.access_token
 
 ## 2. Submit an advisory
 
-Send an OpenVEX document to `POST /advisories`.
+Send your OpenVEX document, together with the SBOM digest, to `POST /advisories`.
 
 <Tabs syncKey="shell">
 <TabItem label="bash">
@@ -89,7 +90,7 @@ Invoke-RestMethod -Method Post -Uri 'https://api.embargogate.example/v1/advisori
 </TabItem>
 </Tabs>
 
-For the contents of `advisory.json`, see the [sample OpenVEX submission](../reference/endpoints/#sample-openvex-submission).
+For the contents of `advisory.json`, see the [sample advisory submission](../reference/endpoints/#sample-advisory-submission).
 
 A successful request returns `201 Created` with the advisory ID. The advisory starts in the `SUBMITTED` state.
 

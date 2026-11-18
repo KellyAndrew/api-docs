@@ -29,7 +29,7 @@ paths:
         '403':
           description: Token lacks the required scope
         '422':
-          description: Payload is well-formed but fails signature or schema checks
+          description: Payload is well-formed but fails signature or schema checks, or sbom_digest does not match an uploaded SBOM
 
 components:
   schemas:
