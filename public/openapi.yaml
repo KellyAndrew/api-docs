@@ -12,6 +12,12 @@ paths:
       security:
         - mutualTLS: []
           oauth2: [advisory:write]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdvisorySubmission'
       responses:
         '201':
           description: Advisory created
@@ -23,6 +29,36 @@ paths:
           description: Payload is well-formed but fails signature or schema checks
 
 components:
+  schemas:
+    AdvisorySubmission:
+      type: object
+      required:
+        - sbom_digest
+        - vex
+      properties:
+        sbom_digest:
+          type: string
+          pattern: '^sha256:[0-9a-f]{64}$'
+          description: SHA-256 digest of an SBOM already uploaded with POST /sboms
+        vex:
+          type: object
+          description: OpenVEX document
+          required:
+            - '@context'
+            - '@id'
+            - author
+          properties:
+            '@context':
+              type: string
+              format: uri
+              description:  URL of the OpenVEX version the document follows, for example https://openvex.dev/ns/v0.2.0.
+            '@id':
+              type: string
+              format: uri
+              description:  Unique identifier for this VEX document, set by the submitter. Not the advisory ID that EmbargoGate returns.
+            author:
+              type: string
+              description:  Person or organization that wrote the VEX document, ideally as an email address or URL
   securitySchemes:
     mutualTLS:
       type: mutualTLS
