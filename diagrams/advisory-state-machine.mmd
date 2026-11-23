@@ -1,0 +1,14 @@
+---
+config:
+  theme: neutral
+---
+stateDiagram
+  direction TB
+  [*] --> SUBMITTED:POST /advisories
+  SUBMITTED --> VERIFIED:advisory:verify
+  SUBMITTED --> REJECTED:advisory:verify
+  VERIFIED --> EMBARGOED:advisory:embargo
+  EMBARGOED --> DISCLOSED:manual, advisory:disclose
+  EMBARGOED --> DISCLOSED:automatic, after 14-day grace period
+  REJECTED --> [*]
+  DISCLOSED --> [*]

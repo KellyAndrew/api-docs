@@ -25,13 +25,9 @@ The US National Institute of Standards and Technology (NIST) Special Publication
 
 ## Advisory state machine
 
-```
-SUBMITTED ──► VERIFIED ──► EMBARGOED ──── manual ─────────────────► DISCLOSED
-    │                          │                                        ▲
-    │                          └──── auto, after 14-day grace period ───┘
-    │
-    └──► REJECTED
-```
+<img src="/images/advisory-state-machine.svg" alt="An advisory moves from submitted to verified, embargoed and disclosed, or from submitted to rejected." style="background: #fff; padding: 1rem; border-radius: 8px;" />
+
+An advisory is created with `POST /advisories`. The other transitions are `POST /advisories/{advisory_id}/transitions` requests, except the automatic disclosure, which EmbargoGate performs itself. Any transition not shown returns `409 Conflict`.
 
 | State | Meaning | Visible to |
 | :--- | :--- | :--- |
